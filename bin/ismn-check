@@ -24,11 +24,11 @@ __END__
 
 =head1 NAME
 
-isbn-check - Tool for ISMN checking.
+ismn-check - Tool for ISMN checking.
 
 =head1 SYNOPSIS
 
- isbn-check [-h] [--version] file_with_isbns
+ ismn-check [-h] [--version] file_with_ismns
 
 =head1 DESCRIPTION
 
@@ -46,7 +46,7 @@ Print help.
 
 Print version of script.
 
-=item * C<file_with_isbns>
+=item * C<file_with_ismns>
 
 File with ISMN strings, one per line.
 
@@ -55,17 +55,13 @@ File with ISMN strings, one per line.
 =head1 EXAMPLE
 
  cat /tmp/foo
- 978-80-253-4336-4
- 9788025343363
- 9788025343364
- 978802534336
+ 979-0-66055-648-1
+ M-2600-0233-3
 
- isbn-chec /tmp/foo
+ isbn-check /tmp/foo
 
  # Output:
- # 9788025343363: Different after format (978-80-253-4336-4).
- # 9788025343364: Different after format (978-80-253-4336-4).
- # 978802534336: Cannot parse.
+ # TODO
 
 =head1 REPOSITORY
 

@@ -84,7 +84,7 @@ __END__
 
 =head1 NAME
 
-App::ISMN::Check - Base class for isbn-check script.
+App::ISMN::Check - Base class for ismn-check script.
 
 =head1 SYNOPSIS
 
@@ -117,7 +117,7 @@ Returns 1 for error, 0 for success.
 
 =head1 EXAMPLE1
 
-=for comment filename=check_example_isbns.pl
+=for comment filename=check_example_ismns.pl
 
  use strict;
  use warnings;
@@ -127,19 +127,16 @@ Returns 1 for error, 0 for success.
  use IO::Barf qw(barf);
 
  # ISMNs for test.
- my $isbns = <<'END';
- 978-80-253-4336-4
- 9788025343363
- 9788025343364
- 978802534336
- 9656123456
+ my $ismns = <<'END';
+ 979-0-66055-648-1
+ M-2600-0233-3
  END
 
  # Temporary file.
  my $temp_file = File::Temp->new->filename;
 
  # Barf out.
- barf($temp_file, $isbns);
+ barf($temp_file, $ismns);
 
  # Arguments.
  @ARGV = (
@@ -150,10 +147,7 @@ Returns 1 for error, 0 for success.
  exit App::ISMN::Check->new->run;
 
  # Output:
- # 9788025343363: Different after format (978-80-253-4336-4).
- # 9788025343364: Different after format (978-80-253-4336-4).
- # 978802534336: Cannot parse.
- # 9656123456: Not valid.
+ # TODO
 
 =head1 EXAMPLE2
 
@@ -173,10 +167,10 @@ Returns 1 for error, 0 for success.
  exit App::ISMN::Check->new->run;
 
  # Output:
- # Usage: ./print_help.pl [-h] [--version] file_with_isbns
+ # Usage: ./print_help.pl [-h] [--version] file_with_ismns
  #         -h              Print help.
  #         --version       Print version.
- #         file_with_isbns File with ISMN strings, one per line.
+ #         file_with_ismns File with ISMN strings, one per line.
 
 =head1 DEPENDENCIES
 
