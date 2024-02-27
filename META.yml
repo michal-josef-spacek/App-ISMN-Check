@@ -22,6 +22,7 @@ meta-spec:
 name: App-ISMN-Check
 no_index:
   directory:
+    - examples
     - inc
     - t
     - xt
