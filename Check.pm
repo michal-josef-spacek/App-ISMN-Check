@@ -3,7 +3,7 @@ package App::ISMN::Check;
 use strict;
 use warnings;
 
-use Business::ISMN qw(ean_to_ismn);
+use Business::ISMN qw(ean_to_ismn ismn_to_ean);
 use Class::Utils qw(set_params);
 use Error::Pure qw(err);
 use Getopt::Std;
@@ -47,12 +47,14 @@ sub run {
 	my @ismns = slurp($self->{'_file'}, { chomp => 1 });
 
 	foreach my $ismn (@ismns) {
+		my $ismn_is_ean = 0;
 		if (! defined $ismn) {
 			print STDERR "ISMN not defined.\n";
 			next;
 		}
 		if ($ismn =~ m/^979/ms) {
 			$ismn = ean_to_ismn($ismn);
+			$ismn_is_ean = 1;
 		}
 		my $ismn_obj = Business::ISMN->new($ismn);
 		if (! $ismn_obj) {
@@ -66,8 +68,15 @@ sub run {
 			print STDERR $ismn.": Not valid.\n";
 			next;
 		}
-		if ($ismn ne $ismn_obj->as_string) {
-			print STDERR $ismn.": Different after format (".$ismn_obj->as_string.").\n";
+		if ($ismn_is_ean) {
+			my $ismn_ean = ismn_to_ean($ismn_obj->as_string);
+			if ($ismn ne $ismn_ean) {
+				print STDERR $ismn.": Different after format (".$ismn_ean.").\n";
+			}
+		} else {
+			if ($ismn ne $ismn_obj->as_string) {
+				print STDERR $ismn.": Different after format (".$ismn_obj->as_string.").\n";
+			}
 		}
 	}
 
